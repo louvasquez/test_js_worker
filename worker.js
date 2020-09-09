@@ -5,9 +5,11 @@ function busy(ms){
 }
 
 onmessage = function(e) {
+  let w = e.data.worker
   let i=0; while(i<e.data.loops) {
-    postMessage({w:e.data.worker, msg:"hi from worker"+e.data.worker+":"+i})
+    postMessage({w:w, msg:`worker${w} still working: ${i}`})
     busy(e.data.busy_secs*1000)
     i=i+1
   }
+  postMessage({w:w, msg:`worker${w} done!`})
 }
